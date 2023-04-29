@@ -2,7 +2,10 @@
 
 namespace Controller;
 
+use Model\Employee;
+use Model\PositionType;
 use Model\Post;
+use Model\Subdivision;
 use Model\User;
 use Src\View;
 use Src\Request;
@@ -12,9 +15,11 @@ class Site
 {
     public function index(Request $request): string
     {
-        $posts = Post::all();
+        $employees = Employee::all();
+        $subdivisions = Subdivision::all();
+        $positionTypes = PositionType::all();
 //        $posts = Post::where('id', $request->id)->get();
-        return (new View())->render('site.post', ['posts' => $posts]);
+        return (new View())->render('site.post', ['employees' => $employees, 'subdivisions' => $subdivisions, 'positionTypes' => $positionTypes]);
     }
 
     public function hello(): string
