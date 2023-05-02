@@ -66,8 +66,9 @@ class Site
 
     public function employee(Request $request)
     {
-        $employees = Employee::all();
-        return (new View())->render('site.employee', ['employees' => $employees]);
+        $position = Position::where('id', $request->id)->first();
+        $employees = Employee::where('id', $request->id)->get();
+        return (new View())->render('site.employee', ['employees' => $employees, 'position' => $position]);
     }
 
     public function signup(Request $request): string

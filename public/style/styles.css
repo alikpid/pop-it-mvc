@@ -53,6 +53,14 @@ main {
     background-color: #202934;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
+.img-emp {
+    width: 200px;
+    height: 190px;
+    border-radius: 15px;
+    background-color: #202934;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    margin-right: 100px;
+}
 .employee {
     margin-top: 50px;
     margin-right: 85px;
@@ -160,7 +168,7 @@ form {
 .reg button {
     width: 200px;
 }
-.auth, .reg, .profile, .subdivision {
+.auth, .reg, .profile, .subdivision, .emp-card {
     min-height: 100vh
 }
 .subdivision {
