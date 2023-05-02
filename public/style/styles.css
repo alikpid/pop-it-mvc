@@ -67,7 +67,7 @@ main {
 /*    align-items: center;*/
 /*    justify-content: space-between;*/
 /*}*/
-.employee input {
+.employee input, .subdivision input {
     border-radius: 15px;
     /*width: 240px;*/
     /*height: 40px;*/
@@ -82,7 +82,7 @@ main {
 .employee p {
     margin-bottom: 25px;
 }
-.employee li {
+.employee li, .subdivision li {
     padding: 10px 0;
     border-bottom: 1px solid;
     font-size: 18px;
@@ -160,6 +160,9 @@ form {
 .reg button {
     width: 200px;
 }
-.auth, .reg, .profile {
+.auth, .reg, .profile, .subdivision {
     min-height: 100vh
+}
+.subdivision {
+    padding-top: 0;
 }

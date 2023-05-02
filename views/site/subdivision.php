@@ -1,17 +1,12 @@
-<?php
-//foreach ($subdivision as $sub) {
-//    echo '<li>' . $sub->title . '</li>';
-//}
-//?>
-
-<div class="container">
-    <div class="employee row justify-content-center">
+<div class="subdivision container">
+    <div class="subdivision row justify-content-center">
         <div class="col-md-9">
-            <div class="emp-head d-flex justify-content-between align-items-center">
-                <h2>Сотрудники</h2>
+            <h2><?= $subdivision['title']; ?> подразделение</h2>
+            <div class="emp-head d-flex justify-content-between">
+                <h3 class="">Сотрудники</h3>
                 <input type="search" placeholder="Поиск" class="form-control w-25">
             </div>
-<!--            <p>Средний возраст: --><?//= $avgAge . $message ?><!-- </p>-->
+            <!--            <p>Средний возраст: --><? //= $avgAge . $message ?><!-- </p>-->
             <ul class="list-unstyled">
                 <?php
                 foreach ($employees as $employee) {
@@ -26,8 +21,6 @@
                 }
                 ?>
             </ul>
-            <button type="button" class="btn btn-primary"><a href="<?= app()->route->getUrl('/add-employee') ?>">Добавить</a>
-            </button>
         </div>
     </div>
 </div>

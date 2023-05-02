@@ -46,7 +46,7 @@
                     <select class="form-select" id="subId" name="id_subdivision">
                         <?php
                         foreach ($subdivisions as $subdivision) {
-                            ?> <option value=<?=$subdivision->id_subdivision;?>><?=$subdivision->title;?></option> <?php
+                            ?> <option value=<?=$subdivision->id;?>><?=$subdivision->title;?></option> <?php
                         }
                         ?>
                     </select>

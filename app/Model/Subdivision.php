@@ -10,8 +10,8 @@ class Subdivision extends Model
     use HasFactory;
     public $timestamps = false;
 
-//    public function employees()
-//    {
-//        return $this->hasMany(Employee::class, 'id_subdivision');
-//    }
+    public function employees()
+    {
+        return $this->hasMany(Employee::class, 'id_subdivision');
+    }
 }

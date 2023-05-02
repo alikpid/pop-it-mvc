@@ -36,7 +36,7 @@ class Site
         if ($lastDigit >= 2 && $lastDigit <= 4) {
             return " года";
         }
-        if ($lastDigit == 0 || $lastDigit == 5) {
+        if ($lastDigit == 0 || ($lastDigit <= 9 && $lastDigit >= 5)) {
             return " лет";
         }
         else
@@ -52,20 +52,21 @@ class Site
 
     public function subdivision(Request $request)
     {
-        $employees = Employee::all();
-        $subdivision = Subdivision::where('id', $request->id)->get();
+        $employees = Employee::where('id_subdivision', $request->id)->get();
+        $subdivision = Subdivision::where('id', $request->id)->first();
         return (new View())->render('site.subdivision', ['subdivision' => $subdivision, 'employees' => $employees]);
     }
 
     public function staff(Request $request)
     {
-        $staffs = PositionType::where('id', $request->id)->get();
-        return (new View())->render('site.staff', ['staffs' => $staffs]);
+        $employees = Employee::where('id_position', $request->id)->get();
+        $staffs = PositionType::where('id', $request->id)->first();
+        return (new View())->render('site.staff', ['staffs' => $staffs, 'employees' => $employees]);
     }
 
     public function employee(Request $request)
     {
-        $employees = Employee::where('id', $request->id)->get();
+        $employees = Employee::all();
         return (new View())->render('site.employee', ['employees' => $employees]);
     }
 
@@ -82,7 +83,7 @@ class Site
         $subdivisions = Subdivision::all();
         $positions = Position::all();
         if ($request->method === 'POST' && Employee::create($request->all())) {
-            app()->route->redirect('/go/');
+            app()->route->redirect('/go');
         }
         return new View('site.addEmployee', ['subdivisions' => $subdivisions,
                                                   'positions' => $positions]);
