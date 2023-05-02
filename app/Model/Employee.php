@@ -20,15 +20,23 @@ class Employee extends Model
         'id_subdivision',
         'id_position'
     ];
-    public function emp(): BelongsTo
+//    public function emp(): BelongsTo
+//    {
+//        return $this->belongsTo(Subdivision::class, 'id_subdivision', 'id');
+//    }
+//    public function emp_position(): BelongsTo
+//    {
+//        return $this->belongsTo(Position::class, 'id_position', 'id');
+//    }
+//    public function subdivision(): BelongsTo
+//    {
+//        return $this->belongsTo(Subdivision::class, 'id_subdivision');
+//    }
+    public function position()
     {
-        return $this->belongsTo(Subdivision::class, 'id_subdivision', 'id');
+        return $this->belongsTo(Position::class, 'id_position');
     }
-    public function emp_position(): BelongsTo
-    {
-        return $this->belongsTo(Position::class, 'id_position', 'id');
-    }
-    public function subdivision(): BelongsTo
+    public function subdivision()
     {
         return $this->belongsTo(Subdivision::class, 'id_subdivision');
     }

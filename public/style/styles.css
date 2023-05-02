@@ -30,7 +30,7 @@ nav a{
 .logo{
     font-size: 28px;
     color: #A9CBE9;
-    margin-right: 480px;
+    margin-right: 50%;
 }
 main {
     background-color: #EBF6FF;
@@ -56,6 +56,7 @@ main {
 .img-emp {
     width: 200px;
     height: 190px;
+    margin-bottom: 50px;
     border-radius: 15px;
     background-color: #202934;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
@@ -101,8 +102,6 @@ main {
     border: none;
     border-radius: 20px;
     width: 160px;
-    /*height: 43px;*/
-    cursor: pointer;
     margin-left: 40%;
     margin-top: 30px;
 }
@@ -168,9 +167,27 @@ form {
 .reg button {
     width: 200px;
 }
-.auth, .reg, .profile, .subdivision, .emp-card {
+.auth, .reg, .profile, .subdivision, .emp-card, .addFiredEmp {
     min-height: 100vh
 }
 .subdivision {
     padding-top: 0;
+}
+.emp-card p{
+    font-size: 24px;
+}
+.emp-buttons button {
+    background-color: #202934;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    width: 160px;
+    margin-top: 40px;
+}
+.emp-buttons button a{
+    font-size: 20px;
+}
+.emp-buttons button:nth-child(2){
+    background-color: #CF4747;
+    margin-left: 50%;
 }

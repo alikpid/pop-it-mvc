@@ -1,6 +1,7 @@
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-9"><h2>Авторизация</h2>
+        <div class="col-md-9">
+            <h2>Авторизация</h2>
             <h3><?= $message ?? ''; ?></h3>
 
             <h3><?= app()->auth->user()->name ?? ''; ?></h3>

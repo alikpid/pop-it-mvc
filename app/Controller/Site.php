@@ -6,6 +6,7 @@ use Model\Employee;
 use Model\PositionType;
 use Model\Position;
 use Model\Subdivision;
+use Model\FiredEmployee;
 use Model\User;
 use Src\View;
 use Src\Request;
@@ -15,7 +16,9 @@ class Site
 {
     public function index(Request $request): string
     {
-        $employees = Employee::all();
+        $employees = Employee::leftJoin('fired_employees', 'employees.id', '=', 'fired_employees.id_employee')
+            ->whereNull('fired_employees.id_employee')
+            ->get();
         $subdivisions = Subdivision::all();
         $positionTypes = PositionType::all();
         $avgAge = Employee::selectRaw('ROUND(AVG(TIMESTAMPDIFF(YEAR, DOB, NOW()))) as average_age')
@@ -52,23 +55,40 @@ class Site
 
     public function subdivision(Request $request)
     {
-        $employees = Employee::where('id_subdivision', $request->id)->get();
+//        $employees = Employee::where('id_subdivision', $request->id)->get();
+        $employees = Employee::leftJoin('fired_employees', 'employees.id', '=', 'fired_employees.id_employee')
+            ->whereNull('fired_employees.id_employee')
+            ->where('id_subdivision', $request->id)
+            ->get();
         $subdivision = Subdivision::where('id', $request->id)->first();
         return (new View())->render('site.subdivision', ['subdivision' => $subdivision, 'employees' => $employees]);
     }
 
     public function staff(Request $request)
     {
-        $employees = Employee::where('id_position', $request->id)->get();
+//        $employees = Employee::where('id_position', $request->id)->get();
         $staffs = PositionType::where('id', $request->id)->first();
+        $employees = Employee::leftJoin('fired_employees', 'employees.id', '=', 'fired_employees.id_employee')
+            ->whereNull('fired_employees.id_employee')
+            ->whereHas('position', function ($query) use ($request) {
+                $query->where('id_type', $request->id);
+            })
+            ->get();
         return (new View())->render('site.staff', ['staffs' => $staffs, 'employees' => $employees]);
     }
 
     public function employee(Request $request)
     {
-        $position = Position::where('id', $request->id)->first();
-        $employees = Employee::where('id', $request->id)->get();
-        return (new View())->render('site.employee', ['employees' => $employees, 'position' => $position]);
+        $positions = Position::all();
+        $subdivisions = Subdivision::all();
+        $employee = Employee::where('id', $request->id)->first();
+        $position = $employee->position()->first();
+        $subdivision = $employee->subdivision()->first();
+        return (new View())->render('site.employee', ['employee' => $employee,
+                                                           'position' => $position,
+                                                           'subdivision' => $subdivision,
+                                                           'positions' => $positions,
+                                                           'subdivisions' => $subdivisions]);
     }
 
     public function signup(Request $request): string
@@ -88,6 +108,39 @@ class Site
         }
         return new View('site.addEmployee', ['subdivisions' => $subdivisions,
                                                   'positions' => $positions]);
+    }
+
+    public function updateEmployee(Request $request)
+    {
+        $employee = Employee::where('id', $request->id)->first();
+//        $employee = Employee::where('id', $request->id)->first();
+
+        $updateDetails = [
+            'id_subdivisions' => $request->get('id_subdivision'),
+            'id_position' => $request->get('id_position'),
+            'surname' => $request->get('surname')
+        ];
+        $employee->update($updateDetails);
+//        if ($employee) {
+//            $employee->id_subdivisions = $request->id_subdivisions;
+//            $employee->id_position = $request->id_position;
+//            $employee->surname = $request->surname;
+//            $employee->save();
+
+        return app()->route->redirect('/fire-employee?id=' . $employee->id);
+    }
+//        return new View('site.updateEmployee', ['subdivisions' => $subdivisions,
+//                                                     'positions' => $positions,
+//                                                     'employee' => $employee]);
+//    }
+
+    public function fireEmployee(Request $request): string
+    {
+        $employee = Employee::where('id', $request->id)->first();
+        if ($request->method === 'POST' && FiredEmployee::create($request->all())) {
+            app()->route->redirect('/go');
+        }
+        return new View('site.fireEmployee', ['employee' => $employee]);
     }
 
     public function login(Request $request): string

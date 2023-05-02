@@ -6,7 +6,6 @@
                 <h3 class="">Сотрудники</h3>
                 <input type="search" placeholder="Поиск" class="form-control w-25">
             </div>
-            <!--            <p>Средний возраст: --><? //= $avgAge . $message ?><!-- </p>-->
             <ul class="list-unstyled">
                 <?php
                 foreach ($employees as $employee) {

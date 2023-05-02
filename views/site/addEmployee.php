@@ -22,11 +22,11 @@
                 <div class="form-group">
                     <p>Пол</p>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="sex" id="male" value="1" checked>
+                        <input class="form-check-input" type="radio" name="sex" id="male" value="Мужской" checked>
                         <label class="form-check-label" for="male">Мужской</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="sex" id="female" value="0">
+                        <input class="form-check-input" type="radio" name="sex" id="female" value="Женский">
                         <label class="form-check-label" for="female">Женский</label>
                     </div>
                 </div>
