@@ -4,7 +4,7 @@ namespace Controller;
 
 use Model\Employee;
 use Model\PositionType;
-use Model\Post;
+use Model\Position;
 use Model\Subdivision;
 use Model\User;
 use Src\View;
@@ -18,13 +18,55 @@ class Site
         $employees = Employee::all();
         $subdivisions = Subdivision::all();
         $positionTypes = PositionType::all();
-//        $posts = Post::where('id', $request->id)->get();
-        return (new View())->render('site.post', ['employees' => $employees, 'subdivisions' => $subdivisions, 'positionTypes' => $positionTypes]);
+        $avgAge = Employee::selectRaw('ROUND(AVG(TIMESTAMPDIFF(YEAR, DOB, NOW()))) as average_age')
+            ->get()[0]->average_age;
+        $message = $this->checkAverageAge($avgAge);
+
+        return (new View())->render('site.post', ['employees' => $employees,
+                                                       'subdivisions' => $subdivisions,
+                                                       'positionTypes' => $positionTypes,
+                                                       'avgAge' => $avgAge,
+                                                       'message' => $message]);
+    }
+
+    private function checkAverageAge($averageAge)
+    {
+        $lastDigit = substr($averageAge, -1);
+
+        if ($lastDigit >= 2 && $lastDigit <= 4) {
+            return " года";
+        }
+        if ($lastDigit == 0 || $lastDigit == 5) {
+            return " лет";
+        }
+        else
+        {
+            return " год";
+        }
     }
 
     public function hello(): string
     {
-        return new View('site.hello', ['message' => 'hello, ' . app()->auth::user()->name]);
+        return new View('site.hello', ['message' => 'Профиль: ' . app()->auth::user()->name]);
+    }
+
+    public function subdivision(Request $request)
+    {
+        $employees = Employee::all();
+        $subdivision = Subdivision::where('id', $request->id)->get();
+        return (new View())->render('site.subdivision', ['subdivision' => $subdivision, 'employees' => $employees]);
+    }
+
+    public function staff(Request $request)
+    {
+        $staffs = PositionType::where('id', $request->id)->get();
+        return (new View())->render('site.staff', ['staffs' => $staffs]);
+    }
+
+    public function employee(Request $request)
+    {
+        $employees = Employee::where('id', $request->id)->get();
+        return (new View())->render('site.employee', ['employees' => $employees]);
     }
 
     public function signup(Request $request): string
@@ -33,6 +75,17 @@ class Site
             app()->route->redirect('/hello');
         }
         return new View('site.signup');
+    }
+
+    public function addEmployee(Request $request): string
+    {
+        $subdivisions = Subdivision::all();
+        $positions = Position::all();
+        if ($request->method === 'POST' && Employee::create($request->all())) {
+            app()->route->redirect('/go/');
+        }
+        return new View('site.addEmployee', ['subdivisions' => $subdivisions,
+                                                  'positions' => $positions]);
     }
 
     public function login(Request $request): string

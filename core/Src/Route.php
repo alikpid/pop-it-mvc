@@ -26,6 +26,7 @@ class Route
     private RouteCollector $routeCollector;
 
     //Добавляет маршрут, устанавливает его текущим и возвращает объект
+
     public static function add($httpMethod, string $route, array $action): self
     {
         self::single()->routeCollector->addRoute($httpMethod, $route, $action);

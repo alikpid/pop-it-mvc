@@ -5,7 +5,7 @@ return [
     'host' => 'localhost',
     'database' => 'humanResources',
     'username' => 'root',
-    'password' => 'QWEasd123',
+    'password' => '',
     'charset' => 'utf8',
     'collation' => 'utf8_unicode_ci',
     'prefix' => '',
