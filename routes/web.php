@@ -2,13 +2,14 @@
 
 use Src\Route;
 
-    Route::add('GET', '/go', [Controller\Site::class, 'index'])
+    Route::add('GET', '/human-resources', [Controller\Site::class, 'index'])
         ->middleware('auth');
-    Route::add('GET', '/hello', [Controller\Site::class, 'hello'])
+    Route::add('GET', '/profile', [Controller\Site::class, 'profile'])
     ->middleware('auth');
-    Route::add(['GET', 'POST'], '/add-employee', [Controller\Site::class, 'addEmployee']);
+    Route::add(['GET', 'POST'], '/add-employee', [Controller\Site::class, 'addEmployee'])->middleware('role:admin');;
+    Route::add(['GET', 'POST'], '/add-user', [Controller\Site::class, 'addUser'])->middleware('role:admin');;
     Route::add(['GET', 'POST'], '/update-employee', [Controller\Site::class, 'updateEmployee']);
-    Route::add(['GET', 'POST'], '/fire-employee', [Controller\Site::class, 'fireEmployee']);
+    Route::add(['GET', 'POST'], '/fire-employee', [Controller\Site::class, 'fireEmployee'])->middleware('role:admin');
     Route::add(['GET'], '/fired-employees', [Controller\Site::class, 'firedEmployeesList']);
     Route::add(['GET'], '/subdivision', [Controller\Site::class, 'subdivision']);
     Route::add(['GET'], '/staff', [Controller\Site::class, 'staff']);

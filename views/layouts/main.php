@@ -15,7 +15,7 @@
         <div class="container">
             <div class="row justify-content-center ">
                 <div class="col-md-9 d-flex flex-wrap align-items-center">
-                    <a class="logo" href="<?= app()->route->getUrl('/go') ?>">Отдел кадров</a>
+                    <a class="logo" href="<?= app()->route->getUrl('/human-resources') ?>">Отдел кадров</a>
                     <?php
                     if (!app()->auth::check()):
                         ?>
@@ -24,7 +24,7 @@
                     <?php
                     else:
                         ?>
-                        <a class="auth-but" href="<?= app()->route->getUrl('/hello') ?>">Профиль</a>
+                        <a class="auth-but" href="<?= app()->route->getUrl('/profile') ?>">Профиль</a>
                         <a href="<?= app()->route->getUrl('/logout') ?>">Выход (<?= app()->auth::user()->name ?>)</a>
                     <?php
                     endif;

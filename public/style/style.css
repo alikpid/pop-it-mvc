@@ -144,7 +144,7 @@ form {
     height: 15px;
     width: 15px;
 }
-.addEmp select {
+.addEmp select, .reg select {
     margin-bottom: 15px;
     width: 490px;
 }
@@ -168,7 +168,7 @@ form {
     width: 200px;
 }
 .auth, .reg, .profile, .subdivision, .emp-card, .addFiredEmp {
-    min-height: 100vh
+    min-height: 100vh;
 }
 .subdivision {
     padding-top: 0;
@@ -188,7 +188,7 @@ form {
 .emp-buttons button a{
     font-size: 20px;
 }
-/*.emp-buttons button {*/
-/*    background-color: #CF4747;*/
-/*    margin-left: 50%;*/
-/*}*/
+.profile .link-primary {
+    font-size: 19px;
+    margin-bottom: 10px;
+}

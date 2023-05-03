@@ -15,9 +15,15 @@
             <p>Дата рождения:<br> <?= $employee->DOB ?></p>
             <p>Адрес прописки:<br> <?= $employee->placeOfResidence ?></p>
 
-            <div class="emp-buttons d-flex">
-                <button type="button" class="btn btn-primary"><a href="<?= app()->route->getUrl('/fire-employee?id=' . $employee->id) ?>">Уволить</a></button>
-            </div>
+            <?php
+            if (app()->auth::user()->hasRole('admin')):
+                ?>
+                <div class="emp-buttons d-flex">
+                    <button type="button" class="btn btn-primary"><a href="<?= app()->route->getUrl('/fire-employee?id=' . $employee->id) ?>">Уволить</a></button>
+                </div>
+            <?php
+            endif;
+            ?>
 
             <form method="post" class="addEmp" action="<?= app()->route->getUrl('/update-employee?id=' . $employee->id); ?>">
                 <div class="form-group">

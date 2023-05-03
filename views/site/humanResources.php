@@ -56,8 +56,14 @@
                 }
                 ?>
             </ul>
+            <?php
+            if (app()->auth::user()->hasRole('admin')):
+            ?>
             <button type="button" class="btn btn-primary"><a href="<?= app()->route->getUrl('/add-employee') ?>">Добавить</a>
             </button>
+            <?php
+            endif;
+            ?>
         </div>
     </div>
 </div>

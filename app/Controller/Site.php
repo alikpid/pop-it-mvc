@@ -26,7 +26,7 @@ class Site
             ->get()[0]->average_age;
         $message = $this->checkAverageAge($avgAge);
 
-        return (new View())->render('site.post', ['employees' => $employees,
+        return (new View())->render('site.humanResources', ['employees' => $employees,
                                                        'subdivisions' => $subdivisions,
                                                        'positionTypes' => $positionTypes,
                                                        'avgAge' => $avgAge,
@@ -49,9 +49,9 @@ class Site
         }
     }
 
-    public function hello(): string
+    public function profile(): string
     {
-        return new View('site.hello', ['message' => 'Профиль: ' . app()->auth::user()->name]);
+        return new View('site.profile', []);
     }
 
     public function subdivision(Request $request)
@@ -95,7 +95,7 @@ class Site
     public function signup(Request $request): string
     {
         if ($request->method === 'POST' && User::create($request->all())) {
-            app()->route->redirect('/hello');
+            app()->route->redirect('/profile');
         }
         return new View('site.signup');
     }
@@ -105,10 +105,19 @@ class Site
         $subdivisions = Subdivision::all();
         $positions = Position::all();
         if ($request->method === 'POST' && Employee::create($request->all())) {
-            app()->route->redirect('/go');
+            app()->route->redirect('/human-resources');
         }
         return new View('site.addEmployee', ['subdivisions' => $subdivisions,
                                                   'positions' => $positions]);
+    }
+
+    public function addUser(Request $request): string
+    {
+        $users = User::all();
+        if ($request->method === 'POST' && User::create($request->all())) {
+            app()->route->redirect('/profile');
+        }
+        return new View('site.addUser', ['users' => $users]);
     }
 
     public function updateEmployee(Request $request)
@@ -148,7 +157,7 @@ class Site
         }
         //Если удалось аутентифицировать пользователя, то редирект
         if (Auth::attempt($request->all())) {
-            app()->route->redirect('/hello');
+            app()->route->redirect('/profile');
         }
         //Если аутентификация не удалась, то сообщение об ошибке
         return new View('site.login', ['message' => 'Неправильные логин или пароль']);
@@ -157,7 +166,7 @@ class Site
     public function logout(): void
     {
         Auth::logout();
-        app()->route->redirect('/hello');
+        app()->route->redirect('/profile');
     }
 
 }
