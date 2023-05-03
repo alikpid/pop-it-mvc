@@ -3,7 +3,7 @@ body {
     /*padding: 0;*/
     font-family: "Roboto", sans-serif;
     box-sizing: border-box;
-    height: auto
+    height: auto;
 }
 a {
     text-decoration: none;
@@ -177,17 +177,18 @@ form {
     font-size: 24px;
 }
 .emp-buttons button {
-    background-color: #202934;
+    background-color: #CF4747;
     padding: 10px;
     border: none;
     border-radius: 20px;
     width: 160px;
-    margin-top: 40px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 .emp-buttons button a{
     font-size: 20px;
 }
-.emp-buttons button:nth-child(2){
-    background-color: #CF4747;
-    margin-left: 50%;
-}
+/*.emp-buttons button {*/
+/*    background-color: #CF4747;*/
+/*    margin-left: 50%;*/
+/*}*/

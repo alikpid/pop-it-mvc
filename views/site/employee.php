@@ -16,12 +16,10 @@
             <p>Адрес прописки:<br> <?= $employee->placeOfResidence ?></p>
 
             <div class="emp-buttons d-flex">
-                <button type="button" class="btn btn-primary"><a href="<?= app()->route->getUrl('/update-employee?id=' . $employee->id) ?>">Изменить</a>
-                <button type="button" class="btn btn-primary"><a href="<?= app()->route->getUrl('/fire-employee?id=' . $employee->id) ?>">Уволить</a>
+                <button type="button" class="btn btn-primary"><a href="<?= app()->route->getUrl('/fire-employee?id=' . $employee->id) ?>">Уволить</a></button>
             </div>
-            <h2>Изменить: <?= $employee->surname; ?></h2>
 
-            <form method="post" class="addEmp" action="<?= app()->route->getUrl('/update-employee'); ?>">
+            <form method="post" class="addEmp" action="<?= app()->route->getUrl('/update-employee?id=' . $employee->id); ?>">
                 <div class="form-group">
                     <label for="surname">Фамилия</label>
                     <input type="text" class="form-control" id="surname" name="surname" value="<?=$employee->surname;?>">
@@ -31,8 +29,8 @@
                     <label for="subId">Подразделение</label>
                     <select class="form-select" id="subId" name="id_subdivision">
                         <?php
-                        foreach ($subdivisions as $sub) {
-                            ?> <option value=<?=$sub->id;?>><?=$sub->title;?></option> <?php
+                        foreach ($subdivisions as $subdivision) {
+                            ?> <option value="<?=$subdivision->id;?>" <?=($employee->id_subdivision == $subdivision->id ? 'selected' : '')?>><?=$subdivision->title;?></option> <?php
                         }
                         ?>
                     </select>
@@ -43,7 +41,7 @@
                     <select class="form-select" id="posId" name="id_position">
                         <?php
                         foreach ($positions as $position) {
-                            ?> <option value=<?=$position->id;?>><?=$position->title;?></option> <?php
+                            ?> <option value="<?=$position->id;?>" <?=($employee->id_position == $position->id ? 'selected' : '')?>><?=$position->title;?></option> <?php
                         }
                         ?>
                     </select>

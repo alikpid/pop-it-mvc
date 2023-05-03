@@ -113,21 +113,24 @@ class Site
     public function updateEmployee(Request $request)
     {
         $employee = Employee::where('id', $request->id)->first();
+        $subdivisions = Subdivision::all();
+        $positions = Position::all();
 //        $employee = Employee::where('id', $request->id)->first();
-
-        $updateDetails = [
-            'id_subdivisions' => $request->get('id_subdivision'),
-            'id_position' => $request->get('id_position'),
-            'surname' => $request->get('surname')
-        ];
-        $employee->update($updateDetails);
+        if($request->method === 'POST') {
+            $updateDetails = [
+                'id_subdivision' => $request->get('id_subdivision'),
+                'id_position' => $request->get('id_position'),
+                'surname' => $request->get('surname')
+            ];
+            $employee->update($updateDetails);
+        }
 //        if ($employee) {
 //            $employee->id_subdivisions = $request->id_subdivisions;
 //            $employee->id_position = $request->id_position;
 //            $employee->surname = $request->surname;
 //            $employee->save();
 
-        return app()->route->redirect('/fire-employee?id=' . $employee->id);
+        return app()->route->redirect('/employee?id=' . $employee->id);
     }
 //        return new View('site.updateEmployee', ['subdivisions' => $subdivisions,
 //                                                     'positions' => $positions,
