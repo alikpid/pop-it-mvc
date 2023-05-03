@@ -9,6 +9,7 @@ use Src\Route;
     Route::add(['GET', 'POST'], '/add-employee', [Controller\Site::class, 'addEmployee']);
     Route::add(['GET', 'POST'], '/update-employee', [Controller\Site::class, 'updateEmployee']);
     Route::add(['GET', 'POST'], '/fire-employee', [Controller\Site::class, 'fireEmployee']);
+    Route::add(['GET'], '/fired-employees', [Controller\Site::class, 'firedEmployeesList']);
     Route::add(['GET'], '/subdivision', [Controller\Site::class, 'subdivision']);
     Route::add(['GET'], '/staff', [Controller\Site::class, 'staff']);
     Route::add(['GET'], '/employee', [Controller\Site::class, 'employee']);

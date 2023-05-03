@@ -3,10 +3,6 @@
         <div class="col-md-9">
             <h2>Уволить сотрудника: <?= $employee->surname; ?></h2>
             <form method="post" class="addEmp">
-
-                @method('PATCH')
-
-
                 <input type="hidden" name="id_employee" value="<?= $employee->id; ?>">
                 <div class="form-group">
                     <label for="reason">Причина</label>

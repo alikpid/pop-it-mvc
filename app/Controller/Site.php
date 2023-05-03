@@ -16,9 +16,10 @@ class Site
 {
     public function index(Request $request): string
     {
-        $employees = Employee::leftJoin('fired_employees', 'employees.id', '=', 'fired_employees.id_employee')
-            ->whereNull('fired_employees.id_employee')
-            ->get();
+//        $employees = Employee::leftJoin('fired_employees', 'employees.id', '=', 'fired_employees.id_employee')
+//            ->whereNull('fired_employees.id_employee') я это напамять оставлю. офигенный запрос
+//            ->get();
+        $employees = Employee::with('firedEmployee')->get();
         $subdivisions = Subdivision::all();
         $positionTypes = PositionType::all();
         $avgAge = Employee::selectRaw('ROUND(AVG(TIMESTAMPDIFF(YEAR, DOB, NOW()))) as average_age')
@@ -113,9 +114,6 @@ class Site
     public function updateEmployee(Request $request)
     {
         $employee = Employee::where('id', $request->id)->first();
-        $subdivisions = Subdivision::all();
-        $positions = Position::all();
-//        $employee = Employee::where('id', $request->id)->first();
         if($request->method === 'POST') {
             $updateDetails = [
                 'id_subdivision' => $request->get('id_subdivision'),
@@ -124,26 +122,22 @@ class Site
             ];
             $employee->update($updateDetails);
         }
-//        if ($employee) {
-//            $employee->id_subdivisions = $request->id_subdivisions;
-//            $employee->id_position = $request->id_position;
-//            $employee->surname = $request->surname;
-//            $employee->save();
-
         return app()->route->redirect('/employee?id=' . $employee->id);
     }
-//        return new View('site.updateEmployee', ['subdivisions' => $subdivisions,
-//                                                     'positions' => $positions,
-//                                                     'employee' => $employee]);
-//    }
 
     public function fireEmployee(Request $request): string
     {
         $employee = Employee::where('id', $request->id)->first();
         if ($request->method === 'POST' && FiredEmployee::create($request->all())) {
-            app()->route->redirect('/go');
+            app()->route->redirect('/fired-employees');
         }
         return new View('site.fireEmployee', ['employee' => $employee]);
+    }
+
+    public function firedEmployeesList(Request $request): string
+    {
+        $employees = Employee::with('firedEmployee')->get();
+        return new View('site.firedEmployees', ['employees' => $employees]);
     }
 
     public function login(Request $request): string

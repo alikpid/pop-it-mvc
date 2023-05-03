@@ -43,6 +43,7 @@
             <ul class="list-unstyled">
                 <?php
                 foreach ($employees as $employee) {
+                    if (!$employee->firedEmployee) {
                     ?>
                     <li><a href="<?= app()->route->getUrl('/employee?id=' . $employee->id) ?>" class="text-dark">
                             <?= $employee->surname ?><br>
@@ -51,6 +52,7 @@
                         </a>
                     </li>
                     <?php
+                }
                 }
                 ?>
             </ul>
