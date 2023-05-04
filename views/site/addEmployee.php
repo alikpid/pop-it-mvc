@@ -2,7 +2,8 @@
     <div class="row justify-content-center">
         <div class="col-md-9" >
             <h2>Добавление сотрудника</h2>
-            <form method="post" class="addEmp">
+            <form method="post" class="addEmp" enctype="multipart/form-data">
+                <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
 
                 <div class="form-group">
                     <label for="surname">Фамилия</label>
@@ -62,6 +63,8 @@
                         ?>
                     </select>
                 </div>
+
+                <label for="img"><input type="file" name="image" value=""></label>
 
                 <button>Добавить</button>
             </form>

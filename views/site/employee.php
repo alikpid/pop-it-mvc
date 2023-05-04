@@ -2,7 +2,13 @@
     <div class="emp-card row justify-content-center">
         <div class="emp-card col-md-9">
             <div class="emp-head d-flex">
-                <div class="img-emp"></div>
+                <?php
+                if ($employee->image) { ?>
+                <div class="img"><img class="img-emp" src="<?= $employee->image ?>" alt="emp-img"/></div>
+                <?php }
+                else { ?>
+                <div class="none-img-emp"></div>
+                <?php } ?>
                 <div class="d-flex flex-column">
                     <h2 class="text-dark"><?= $employee->surname ?></h2>
                     <h3><?= $employee->name . ' ' . $employee->middlename ?></h3> <br>

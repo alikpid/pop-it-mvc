@@ -18,7 +18,8 @@ class Employee extends Model
         'DOB',
         'placeOfResidence',
         'id_subdivision',
-        'id_position'
+        'id_position',
+        'image',
     ];
     public function position()
     {

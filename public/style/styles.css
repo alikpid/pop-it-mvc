@@ -53,14 +53,28 @@ main {
     background-color: #202934;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
+/*.img {*/
+/*    max-width: 200px;*/
+/*    max-height: 200px;*/
+/*}*/
 .img-emp {
-    width: 200px;
-    height: 190px;
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
     margin-bottom: 50px;
     border-radius: 15px;
     background-color: #202934;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    margin-right: 100px;
+    margin-right: 80px;
+}
+.none-img-emp {
+    width: 250px;
+    height: 250px;
+    background-color: #202934;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    margin-right: 80px;
+    margin-bottom: 50px;
+    border-radius: 15px;
 }
 .employee {
     margin-top: 50px;

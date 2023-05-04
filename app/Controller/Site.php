@@ -105,8 +105,34 @@ class Site
     {
         $subdivisions = Subdivision::all();
         $positions = Position::all();
-        if ($request->method === 'POST' && Employee::create($request->all())) {
-            app()->route->redirect('/human-resources');
+        if ($request->method === 'POST') {
+            $path = '../public/images/';
+            $storage = new \Upload\Storage\FileSystem($path);
+            $file = new \Upload\File('image', $storage);
+            $new_filename = uniqid();
+            $file->setName($new_filename);
+            $file_name = $file->getNameWithExtension($new_filename);
+            try {
+                $file->upload();
+            } catch (\Exception $e) {
+                $errors = $file->getErrors();
+            }
+            if (Employee::create([
+                'csrf_token' => $request->csrf_token,
+                'surname' => $request->surname,
+                'name' => $request->name,
+                'middlename' => $request->middlename,
+                'sex' => $request->sex,
+                'DOB' => $request->DOB,
+                'placeOfResidence' => $request->placeOfResidence,
+                'id_subdivision' => $request->id_subdivision,
+                'id_position' => $request->id_position,
+                'image' => app()->route->getUrl('/') . 'images/' . $file_name
+            ])) {
+                app()->route->redirect('/human-resources');
+                return false;
+            }
+
         }
         return new View('site.addEmployee', ['subdivisions' => $subdivisions,
                                                   'positions' => $positions]);
