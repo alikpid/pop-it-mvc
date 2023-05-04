@@ -9,11 +9,12 @@
             if (!app()->auth::check()):
             ?>
             <form method="post" class="auth">
+                <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>">
                 <input id="login" type="text" name="login" placeholder="Логин">
                 <input id="password" type="password" name="password" placeholder="Пароль">
                 <button id="enter">Войти</button>
             </form>
+            <?php endif; ?>
         </div>
     </div>
 </div>
-<?php endif;

@@ -11,6 +11,7 @@ use Model\User;
 use Src\View;
 use Src\Request;
 use Src\Auth\Auth;
+use Src\Validator\Validator;
 
 class Site
 {
@@ -114,8 +115,22 @@ class Site
     public function addUser(Request $request): string
     {
         $users = User::all();
-        if ($request->method === 'POST' && User::create($request->all())) {
-            app()->route->redirect('/profile');
+        if ($request->method === 'POST') {
+            $validator = new Validator($request->all(), [
+                'name' => ['required'],
+                'login' => ['required', 'unique:users,login'],
+                'password' => ['required']
+            ],  [
+                'required' => 'Поле :field пусто',
+                'unique' => 'Поле :field должно быть уникально'
+            ]);
+            if($validator->fails()){
+                return new View('site.addUser',
+                    ['message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE), 'users' => $users]);
+            }
+            if (User::create($request->all())) {
+                app()->route->redirect('/profile');
+            }
         }
         return new View('site.addUser', ['users' => $users]);
     }
