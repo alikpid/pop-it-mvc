@@ -33,4 +33,8 @@ class Employee extends Model
     {
         return $this->hasOne(FiredEmployee::class, 'id_employee', 'id');
     }
+    public static function search(string $query)
+    {
+        return self::where('surname', 'LIKE', '%' . $query . '%')->get();
+    }
 }

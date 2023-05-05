@@ -15,7 +15,7 @@
         <div class="container">
             <div class="row justify-content-center ">
                 <div class="col-md-9 d-flex flex-wrap align-items-center">
-                    <a class="logo" href="<?= app()->route->getUrl('/human-resources') ?>">Отдел кадров</a>
+                    <a class="logo" href="<?= app()->route->getUrl('/') ?>">Отдел кадров</a>
                     <?php
                     if (!app()->auth::check()):
                         ?>

@@ -12,11 +12,6 @@ class Position extends Model
     use HasFactory;
     public $timestamps = false;
 
-//    public function emp_position_type(): BelongsTo
-//    {
-//        return $this->belongsTo(PositionType::class, 'id_type', 'id');
-//    }
-
     public function type()
     {
         return $this->belongsTo(PositionType::class, 'id_type');

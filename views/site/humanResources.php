@@ -37,7 +37,9 @@
         <div class="col-md-9">
             <div class="emp-head d-flex justify-content-between align-items-center">
                 <h2>Сотрудники</h2>
-                <input type="search" placeholder="Поиск" class="form-control w-25">
+                <form method="post">
+                    <input type="text" name="search" placeholder="Поиск" class="form-control">
+                </form>
             </div>
             <p>Средний возраст: <?= $avgAge . $message ?> </p>
             <ul class="list-unstyled">

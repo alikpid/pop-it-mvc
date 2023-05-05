@@ -15,7 +15,8 @@
         "illuminate/database": "9.x-dev",
         "illuminate/events": "9.x-dev",
         "nikic/fast-route": "^2.0@dev",
-        "codeguy/upload": "dev-master"
+        "codeguy/upload": "dev-master",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {

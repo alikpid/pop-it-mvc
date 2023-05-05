@@ -3,7 +3,9 @@
         <div class="col-md-9">
             <div class="emp-head d-flex justify-content-between">
                 <h3>Уволенные сотрудники</h3>
-                <input type="search" placeholder="Поиск" class="form-control w-25">
+                <form method="post">
+                    <input type="text" name="search" placeholder="Поиск" class="form-control">
+                </form>
             </div>
             <ul class="list-unstyled">
                 <?php

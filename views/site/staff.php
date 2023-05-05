@@ -4,11 +4,14 @@
             <h2>Состав - <?= $staffs['title']; ?></h2>
             <div class="emp-head d-flex justify-content-between">
                 <h3 class="">Сотрудники</h3>
-                <input type="search" placeholder="Поиск" class="form-control w-25">
+                <form method="post">
+                    <input type="text" name="search" placeholder="Поиск" class="form-control">
+                </form>
             </div>
             <ul class="list-unstyled">
                 <?php
                 foreach ($employees as $employee) {
+                if (!$employee->firedEmployee) {
                     ?>
                     <li><a href="<?= app()->route->getUrl('/employee?id=' . $employee->id) ?>" class="text-dark">
                             <?= $employee->surname ?><br>
@@ -17,6 +20,7 @@
                         </a>
                     </li>
                     <?php
+                }
                 }
                 ?>
             </ul>

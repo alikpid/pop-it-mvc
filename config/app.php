@@ -6,7 +6,11 @@ return [
     'identity'=>\Model\User::class,
     'validators' => [
         'required' => \Validators\RequireValidator::class,
-        'unique' => \Validators\UniqueValidator::class
+        'unique' => \Validators\UniqueValidator::class,
+        'login' => \Validators\LoginValidator::class,
+        'date' => \Validators\DateValidator::class,
+        'rus' => \Validators\NameValidator::class,
+        'img' => \Validators\ImageValidator::class
     ],
     //Классы для middleware
     'routeAppMiddleware' => [

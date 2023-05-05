@@ -31,6 +31,12 @@
             endif;
             ?>
 
+            <?php
+            if ($message) { ?>
+                <div class="alert alert-danger"><?= $message ?></div>
+                <?php
+            }
+            ?>
             <form method="post" class="addEmp" action="<?= app()->route->getUrl('/update-employee?id=' . $employee->id); ?>">
                 <div class="form-group">
                     <label for="surname">Фамилия</label>

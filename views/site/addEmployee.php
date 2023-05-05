@@ -2,6 +2,12 @@
     <div class="row justify-content-center">
         <div class="col-md-9" >
             <h2>Добавление сотрудника</h2>
+            <?php
+            if ($message) { ?>
+                <div class="alert alert-danger"><?= $message ?></div>
+            <?php
+            }
+            ?>
             <form method="post" class="addEmp" enctype="multipart/form-data">
                 <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
 
