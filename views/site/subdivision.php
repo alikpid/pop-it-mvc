@@ -10,19 +10,14 @@
             </div>
             <ul class="list-unstyled">
                 <?php
-                foreach ($employees as $employee) {
-                if (!$employee->firedEmployee) {
-                    ?>
+                foreach ($employees as $employee) { ?>
                     <li><a href="<?= app()->route->getUrl('/employee?id=' . $employee->id) ?>" class="text-dark">
                             <?= $employee->surname ?><br>
                             <?= $employee->name ?>
                             <?= $employee->middlename ?>
                         </a>
                     </li>
-                    <?php
-                }
-                }
-                ?>
+                    <?php } ?>
             </ul>
         </div>
     </div>

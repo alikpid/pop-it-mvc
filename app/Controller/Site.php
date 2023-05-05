@@ -12,7 +12,7 @@ class Site
 {
     public function index(Request $request): string
     {
-        $employees = Employee::with('firedEmployee')->get();
+        $employees = Employee::whereDoesntHave('firedEmployee')->get();
         if ($request->method === 'POST') {
             $employees = Employee::search($request->search);
         }
@@ -47,7 +47,7 @@ class Site
 
     public function subdivision(Request $request)
     {
-        $employees = Employee::with('firedEmployee')->where('id_subdivision', $request->id)->get();
+        $employees = Employee::whereDoesntHave('firedEmployee')->where('id_subdivision', $request->id)->get();
         if ($request->method === 'POST') {
             $employees = Employee::search($request->search);
         }
@@ -58,12 +58,9 @@ class Site
     public function staff(Request $request)
     {
         $staffs = PositionType::where('id', $request->id)->first();
-        $employees = Employee::leftJoin('fired_employees', 'employees.id', '=', 'fired_employees.id_employee')
-            ->whereNull('fired_employees.id_employee')
-            ->whereHas('position', function ($query) use ($request) {
-                $query->where('id_type', $request->id);
-            })
-            ->get();
+        $employees = Employee::whereHas('position', function ($query) use ($staffs) {
+            $query->where('id_type', $staffs->id);
+        })->get();
         if ($request->method === 'POST') {
             $employees = Employee::search($request->search);
         }

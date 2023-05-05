@@ -15,7 +15,7 @@ class User extends Model implements IdentityInterface
         'name',
         'login',
         'password',
-        'role'
+        'id_role'
     ];
 
     protected static function booted()
@@ -43,13 +43,43 @@ class User extends Model implements IdentityInterface
         return self::where(['login' => $credentials['login'],
             'password' => md5($credentials['password'])])->first();
     }
-
-    public function hasRole($roles): bool
+    public function role()
     {
-        if (is_array($roles)) {
-            return in_array($this->role, $roles);
-        }
-        return $this->role === $roles;
+        return $this->belongsTo(UserRole::class, 'id_role');
     }
 
+    public function hasRole($roles): bool {
+        if (is_array($roles)) {
+            return in_array($this->role->title, $roles);
+        }
+        return $this->role->title === $roles;
+    }
+
+//    public function hasRole($roles): bool
+//    {
+//        return in_array($this->role, $roles);
+//    }
+//
+//    public function hasRole($roles): bool
+//    {
+//        if (is_array($roles)) {
+//            return in_array($this->role, $roles);
+//        }
+//        return $this->role === $roles;
+//    }
+
+//    public function role()
+//    {
+//        return $this->hasOne(UserRole::class, 'id_role', 'id');
+//    }
+
+//    public function firedEmployee()
+//    {
+//        return $this->hasOne(FiredEmployee::class, 'id_employee', 'id');
+//    }
+//
+//    public function role()
+//    {
+//        return $this->hasOne(UserRole::class, 'id_role', 'id');
+//    }
 }

@@ -10,17 +10,18 @@ return [
         'login' => \Validators\LoginValidator::class,
         'date' => \Validators\DateValidator::class,
         'rus' => \Validators\NameValidator::class,
-        'img' => \Validators\ImageValidator::class
+        'img' => \Validators\ImageValidator::class,
+        'address' => \Validators\AddressValidator::class,
     ],
     //Классы для middleware
     'routeAppMiddleware' => [
     ],
     'routeMiddleware' => [
         'csrf' => \Middlewares\CSRFMiddleware::class,
-        'trim' => \Middlewares\TrimMiddleware::class,
-        'specialChars' => \Middlewares\SpecialCharsMiddleware::class,
-        'auth' => \Middlewares\AuthMiddleware::class,
         'role' => \Middlewares\RoleMiddleware::class,
+        'trim' => \Middlewares\TrimMiddleware::class,
+        'auth' => \Middlewares\AuthMiddleware::class,
+        'specialChars' => \Middlewares\SpecialCharsMiddleware::class,
     ],
 
 ];

@@ -2,6 +2,7 @@
 
 namespace Controller;
 
+use Model\UserRole;
 use Src\Request;
 use Src\Validator\Validator;
 use Src\View;
@@ -11,37 +12,43 @@ use Src\Auth\Auth;
 
 class UserController
 {
-    public function profile(): string
+    public function profile()
     {
-        return new View('site.profile');
+        return (new View)->render('site.profile');
     }
 
     public function signup(Request $request): string
     {
-        if ($request->method === 'POST' && \Model\User::create($request->all())) {
+        $roles = UserRole::all();
+        if ($request->method === 'POST' && User::create($request->all())) {
             app()->route->redirect('/profile');
         }
-        return new View('site.signup');
+        return new View('site.signup', ['roles' => $roles]);
     }
 
     public function addUser(Request $request): string
     {
-        $users = User::all();
+        $usRoles = UserRole::all();
         if ($request->method === 'POST') {
             $validator = new Validator($request->all(), [
                 'name' => ['required'],
                 'login' => ['required', 'unique:users,login', 'login'],
-                'password' => ['required']
-            ]);
+                'password' => ['required'],
+            ],[
+                'required' => 'Поле :field обязательно',
+                'unique' => 'Поле :field должно быть уникально',
+                'login' => 'Поле :field может содержать только латиницу и цифры'
+            ],
+            );
             if($validator->fails()){
                 return new View('site.addUser',
-                    ['message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE), 'users' => $users]);
+                    ['message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE), 'usRoles' => $usRoles]);
             }
             if (User::create($request->all())) {
                 app()->route->redirect('/profile');
             }
         }
-        return new View('site.addUser', ['users' => $users]);
+        return new View('site.addUser', ['usRoles' => $usRoles]);
     }
 
     public function login(Request $request): string

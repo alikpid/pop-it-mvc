@@ -10,10 +10,10 @@
                 <input type="password" name="password" placeholder="Пароль">
                 <div class="checkselect">
                     <label for="role">Роль</label>
-                    <select class="form-select" id="role" name="role">
+                    <select class="form-select" id="role" name="id_role">
                         <?php
-                        foreach ($users as $user) {
-                            ?> <option value=<?=$user->role;?>><?=$user->role;?></option> <?php
+                        foreach ($usRoles as $usRole) {
+                            ?> <option value=<?=$usRole->id;?>><?=$usRole->title;?></option> <?php
                         }
                         ?>
                     </select>

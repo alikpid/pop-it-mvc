@@ -119,6 +119,7 @@ main {
     margin-left: 40%;
     margin-top: 30px;
 }
+
 button a {
     color: #EBF6FF;
     font-size: 18px;
@@ -191,13 +192,17 @@ form {
     font-size: 24px;
 }
 .emp-buttons button {
-    background-color: #CF4747;
+    background-color: #202934;
     padding: 10px;
     border: none;
     border-radius: 20px;
     width: 160px;
     margin-top: 30px;
     margin-bottom: 30px;
+}
+.emp-buttons button:nth-child(2) {
+    background-color: #CF4747;
+    margin-left: 55%;
 }
 .emp-buttons button a{
     font-size: 20px;

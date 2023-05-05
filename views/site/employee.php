@@ -4,10 +4,10 @@
             <div class="emp-head d-flex">
                 <?php
                 if ($employee->image) { ?>
-                <div class="img"><img class="img-emp" src="<?= $employee->image ?>" alt="emp-img"/></div>
+                    <div class="img"><img class="img-emp" src="<?= $employee->image ?>" alt="emp-img"/></div>
                 <?php }
                 else { ?>
-                <div class="none-img-emp"></div>
+                    <div class="none-img-emp"></div>
                 <?php } ?>
                 <div class="d-flex flex-column">
                     <h2 class="text-dark"><?= $employee->surname ?></h2>
@@ -24,48 +24,13 @@
             <?php
             if (app()->auth::user()->hasRole('admin')):
                 ?>
-                <div class="emp-buttons d-flex">
+                <div class="emp-buttons d-flex align-items-center">
+                    <button type="button" class="btn btn-primary"><a href="<?= app()->route->getUrl('/update-employee?id=' . $employee->id) ?>">Изменить</a></button>
                     <button type="button" class="btn btn-primary"><a href="<?= app()->route->getUrl('/fire-employee?id=' . $employee->id) ?>">Уволить</a></button>
                 </div>
             <?php
             endif;
             ?>
-
-            <?php
-            if ($message) { ?>
-                <div class="alert alert-danger"><?= $message ?></div>
-                <?php
-            }
-            ?>
-            <form method="post" class="addEmp" action="<?= app()->route->getUrl('/update-employee?id=' . $employee->id); ?>">
-                <div class="form-group">
-                    <label for="surname">Фамилия</label>
-                    <input type="text" class="form-control" id="surname" name="surname" value="<?=$employee->surname;?>">
-                </div>
-
-                <div class="checkselect">
-                    <label for="subId">Подразделение</label>
-                    <select class="form-select" id="subId" name="id_subdivision">
-                        <?php
-                        foreach ($subdivisions as $subdivision) {
-                            ?> <option value="<?=$subdivision->id;?>" <?=($employee->id_subdivision == $subdivision->id ? 'selected' : '')?>><?=$subdivision->title;?></option> <?php
-                        }
-                        ?>
-                    </select>
-                </div>
-
-                <div class="checkselect">
-                    <label for="posId">Должность</label>
-                    <select class="form-select" id="posId" name="id_position">
-                        <?php
-                        foreach ($positions as $position) {
-                            ?> <option value="<?=$position->id;?>" <?=($employee->id_position == $position->id ? 'selected' : '')?>><?=$position->title;?></option> <?php
-                        }
-                        ?>
-                    </select>
-                </div>
-                <button>Изменить</button>
-            </form>
         </div>
     </div>
 </div>

@@ -14,16 +14,15 @@ class EmployeeController
 {
     public function employee(Request $request)
     {
-        $positions = Position::all();
-        $subdivisions = Subdivision::all();
+//        $message = null;
+//        $positions = Position::all();
+//        $subdivisions = Subdivision::all();
         $employee = Employee::where('id', $request->id)->first();
         $position = $employee->position()->first();
         $subdivision = $employee->subdivision()->first();
         return (new View())->render('site.employee', ['employee' => $employee,
             'position' => $position,
-            'subdivision' => $subdivision,
-            'positions' => $positions,
-            'subdivisions' => $subdivisions]);
+            'subdivision' => $subdivision]);
     }
 
     public function addEmployee(Request $request)
@@ -38,6 +37,13 @@ class EmployeeController
                 'name' => ['rus', 'required'],
                 'surname' => ['rus', 'required'],
                 'middlename' => ['rus', 'required'],
+                'placeOfResidence' => ['address', 'required']
+            ], [
+                'date' => 'Неверный формат даты',
+                'img' => 'Поле :field обязательно',
+                'rus' => 'Поле :field может содержать только кириллицу',
+                'address' => 'Поле :field может содержать только кириллицу и цифры',
+                'required' => 'Поле :field обязательно'
             ]);
             if($validator->fails()){
                 $message = json_encode($validator->errors(), JSON_UNESCAPED_UNICODE);
@@ -80,13 +86,15 @@ class EmployeeController
         $subdivisions = Subdivision::all();
         $employee = Employee::where('id', $request->id)->first();
         $message = null;
-        $validator = new Validator($request->all(), [
-            'surname' => ['rus'],
-        ]);
-        if($validator->fails()){
-            $message = json_encode($validator->errors(), JSON_UNESCAPED_UNICODE);
-        }
         if($request->method === 'POST') {
+            $validator = new Validator($request->all(), [
+                'surname' => ['rus'],
+            ], [
+                'rus' => 'Поле :field может содержать только кириллицу'
+            ]);
+            if($validator->fails()){
+                $message = json_encode($validator->errors(), JSON_UNESCAPED_UNICODE);
+            }
             $updateDetails = [
                 'id_subdivision' => $request->get('id_subdivision'),
                 'id_position' => $request->get('id_position'),
@@ -94,9 +102,10 @@ class EmployeeController
             ];
             if (!$message) {
                 $employee->update($updateDetails);
+                app()->route->redirect('/employee?id=' . $employee->id);
             }
         }
-        return (new View)->render('site.employee', ['subdivisions' => $subdivisions,
+        return (new View)->render('site.updateEmployee', ['subdivisions' => $subdivisions,
             'employee' =>$employee,
             'positions' => $positions,
             'message' => $message]);

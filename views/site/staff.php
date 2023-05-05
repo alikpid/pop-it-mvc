@@ -19,10 +19,7 @@
                             <?= $employee->middlename ?>
                         </a>
                     </li>
-                    <?php
-                }
-                }
-                ?>
+                    <?php } } ?>
             </ul>
         </div>
     </div>
